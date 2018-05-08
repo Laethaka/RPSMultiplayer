@@ -6,6 +6,7 @@
   <title>Rock Paper Scissors Online!</title>
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="style.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
@@ -13,12 +14,12 @@
 
 <body>
     <div class="container">
-        <header>Welcome to RPS Online!</header>
+        <header>Welcome to Rock Paper Scissors Online!</header>
 
         <div class="player-one-box">
             <h3>Player 1 Box</h3>
             <!-- PLAYER ONE CONTROLS -->
-            <div class="player-buttons invisible">
+            <div class="player-buttons invisible" id='p1Buttons'>
                 <button id="p1Rock"></button>
                 <button id="p1Paper"></button>
                 <button id="p1Scissors"></button>
@@ -28,7 +29,7 @@
         <div class='player-two-box'>
             <h3>Player 2 Box</h3>
             <!-- PLAYER TWO CONTROLS -->
-            <div class="player-buttons p2-buttons invisible">
+            <div class="player-buttons invisible" id='p2Buttons'>
                 <button id="p2Rock"></button>
                 <button id="p2Paper"></button>
                 <button id="p2Scissors"></button>

@@ -1,3 +1,23 @@
 header {
-    font-size: 36px;
+    font-size: 48px;
+    text-align: center;
+    margin: 15px 0;
+    font-family: 'VT323', monospace;
+    background-color: grey;
+}
+
+.player-one-box {
+    float: left;
+    background-color: red;
+    width: 45%;
+    text-align: center;
+    padding: 15px;
+}
+
+.player-two-box {
+    float: right;
+    background-color: blue;
+    width: 45%;
+    text-align: center;
+    padding: 15px;
 }

@@ -43,7 +43,7 @@ connectionsRef.once("value", function(snap) {//PAGE LOAD AND ANY PLAYER JOIN/LEA
             invitePlayerTwo();
         } else {
             console.log('both players found');
-            newSpectator();
+            becomeSpectator();
         };
     // };
 });
@@ -59,10 +59,9 @@ function invitePlayerOne() {
             isPlayerOne: true
         })
     } else {
-        newSpectator();
+        becomeSpectator();
     }
 };
-
 function invitePlayerTwo() {
     var invitePlay = confirm('Would you like to become Player Two?')
     if (invitePlay) {
@@ -71,22 +70,22 @@ function invitePlayerTwo() {
             isPlayerTwo: true
         })
     } else {
-        newSpectator();
+        becomeSpectator();
     }
 };
 
-function newSpectator() {
-
-};
-
-//PLAYER ASSIGNMENT DOM SHIT
+//PLAYER ROLE FUNCTIONALITY
 function becomePlayerOne() {
+    $('#p1Buttons').removeClass('invisible')
     var presenceRef = database.ref("connections/playerOne/isPlayerOne");
     presenceRef.onDisconnect().set(false);
 };
-
 function becomePlayerTwo() {
+    $('#p2Buttons').removeClass('invisible')
     var presenceRef = database.ref("connections/playerTwo/isPlayerTwo");
     presenceRef.onDisconnect().set(false);
+};
+function becomeSpectator() {
+
 };
 
