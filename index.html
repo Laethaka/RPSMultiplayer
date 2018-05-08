@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Rock Paper Scissors Online!</title>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <header>Welcome to RPS Online!</header>
+
+        <div class="player-one-box">
+            <h3>Player 1 Box</h3>
+            <!-- PLAYER ONE CONTROLS -->
+            <div class="player-buttons invisible">
+                <button id="p1Rock"></button>
+                <button id="p1Paper"></button>
+                <button id="p1Scissors"></button>
+            </div>
+        </div>
+
+        <div class='player-two-box'>
+            <h3>Player 2 Box</h3>
+            <!-- PLAYER TWO CONTROLS -->
+            <div class="player-buttons p2-buttons invisible">
+                <button id="p2Rock"></button>
+                <button id="p2Paper"></button>
+                <button id="p2Scissors"></button>
+            </div>
+        </div>
+
+
+
+    </div>
+    <script src="script.js"></script>
+
+</body>
+
+</html>
