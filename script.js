@@ -10,23 +10,8 @@ firebase.initializeApp(config);
 
 var database = firebase.database();
 
-//GAME INITIALIZATION
-// database.ref('connections/playerOne/').set({
-//     active: false,
-//     name: 'Player1'
-// })
-// database.ref('connections/playerTwo/').set({
-//     active: false,
-//     name: 'Player2'
-// })
-
-database.ref('game/').set({
-    player1move: ' ',
-    player2move: ' '
-})
-
 //LOCAL SCORE VARS
-var p1Wins, p1Ties, p1Losses, p2Wins, p2Ties, p2Losses;
+var wins, losses, ties, isPlayer1;
 
 //VIEWER TRACKING
 var connectionsRef = database.ref("/connections");
@@ -53,14 +38,17 @@ connectionsRef.once("value", function(snap) {//PAGE LOAD AND ANY PLAYER JOIN/LEA
 
 //PLAYER INFO LISTENERS
 database.ref('connections/playerOne/').on('value', function(snap) {
-    // console.log('player1 snapval: '+ snap.val())
     $('#player1Name').text(snap.val().name)
+    $('#p1Wins').text(snap.val().wins)
+    $('#p1Ties').text(snap.val().ties)
+    $('#p1Losses').text(snap.val().losses)
 })
 database.ref('connections/playerTwo/').on('value', function(snap) {
-    // console.log('player2 snapval: '+ snap.val())
     $('#player2Name').text(snap.val().name)
+    $('#p2Wins').text(snap.val().wins)
+    $('#p2Ties').text(snap.val().ties)
+    $('#p2Losses').text(snap.val().losses)
 })
-
 
 //PLAYER ASSIGNMENT PROMPTS
 function invitePlayerOne() {
@@ -80,10 +68,11 @@ function invitePlayerTwo() {
     }
 };
 
-//PLAYER ROLE INITIALIZATION AND DISCONNECT LISTENING
+//PLAYER ONE SETUP AND DISCONNECT LISTENING
 function becomePlayerOne() {
     $('#p1Buttons, #p1CurrentBar').removeClass('invisible')
     var userName = prompt('Please enter your username', 'Imperials');
+    //SERVER PLAYER VARS SETUP
     database.ref('connections/playerOne').set({
         active: true,
         name: userName,
@@ -91,17 +80,30 @@ function becomePlayerOne() {
         ties: 0,
         losses: 0
     })
-    p1Wins = 0;
-    p1Ties = 0;
-    p1Losses = 0;
+    //LOCAL PLAYER VARS SETUP
+    isPlayer1 = true;
+    wins = 0;
+    ties = 0;
+    losses = 0;
     $('#p2Wins, #p2Ties, #p2Losses').text('0')
+    $('.player-two-box').css('background-color', 'lightcoral')
+    $('.player-one-box').css('background-color', 'lightblue')
 
+    database.ref('game/').set({
+        player1move: ' ',
+        player2move: ' '
+    })
+
+    //DISCONNECT LISTENING
     var presenceRef = database.ref("connections/playerOne/active");
     presenceRef.onDisconnect().set(false);
 };
+
+//PLAYER TWO SETUP AND DISCONNECT LISTENING
 function becomePlayerTwo() {
     $('#p2Buttons, #p2CurrentBar').removeClass('invisible')
     var userName = prompt('Please enter your username', 'Rebels');
+    //SERVER PLAYER VARS SETUP
     database.ref('connections/playerTwo').set({
         active: true,
         name: userName,
@@ -109,19 +111,31 @@ function becomePlayerTwo() {
         ties: 0,
         losses: 0
     })
-    p2Wins = 0;
-    p2Ties = 0;
-    p2Losses = 0;
+    //LOCAL PLAYER VARS SETUP
+    isPlayer1 = false;
+    wins = 0;
+    ties = 0;
+    losses = 0;
     $('#p2Wins, #p2Ties, #p2Losses').text('0')
+    $('.player-two-box').css('background-color', 'lightblue')
+    $('.player-one-box').css('background-color', 'lightcoral')
 
+    database.ref('game/').set({
+        player1move: ' ',
+        player2move: ' '
+    })
+
+    //DISCONNECT LISTENING
     var presenceRef = database.ref("connections/playerTwo/active");
     presenceRef.onDisconnect().set(false);
 };
+
+//UHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
 function becomeSpectator() {
 
 };
 
-//BUTTONS PICKING MOVES AND STARTING COMBAT
+//BUTTONS PICKING MOVES AND LISTENER TO START COMBAT
 $('.player1button').on('click', function() {
     var move = $(this).attr('data')
     $('#p1CurrentMove').text(move)
@@ -144,7 +158,7 @@ database.ref('game/').on('value', function(snap) {
     }
 })
 
-//COMBAT FUNCTION
+//COMBAT TREE
 function combat(move1, move2) {
     if ((move1 === "rock") && (move2 === "scissors")) {
         player1Win();
@@ -161,7 +175,7 @@ function combat(move1, move2) {
     } else if (move1 === move2) {
         tie();
     }
-    database.ref('game/').update({ //CLEARING MOVE VALUES
+    database.ref('game/').update({ //CLEARING SERVER AND LOCAL MOVE VALUES
         player1move: ' ',
         player2move: ' '
     })
@@ -169,19 +183,49 @@ function combat(move1, move2) {
     $('#p2CurrentMove').text(' ')
 }
 
-//WIN/LOSS FUNCTIONS
+//WIN/LOSS FUNCTIONS, EACH PLAYER ONLY UPDATES THEIR OWN FIREBASE OBJECT
 function player1Win() {
-    p1Wins++;
-    database.ref('connections/playerOne/').update({
-        wins: p1Wins
-    })
-    p2Losses++;
+    if (isPlayer1) {
+        wins++;
+        $('#reactionImage').attr('src', 'images/victory.jpg')
+        database.ref('connections/playerOne/').update({
+            wins: wins
+        })
+    } else {
+        losses++;
+        $('#reactionImage').attr('src', 'images/defeat.jpg')
+        database.ref('connections/playerTwo/').update({
+            losses: losses
+        })
+    }
 }
 function player2Win() {
-    console.log('player2 wins!')
+    if (isPlayer1) {
+        losses++;
+        $('#reactionImage').attr('src', 'images/defeat.jpg')
+        database.ref('connections/playerOne/').update({
+            losses: losses
+        })
+    } else {
+        wins++;
+        $('#reactionImage').attr('src', 'images/victory.jpg')
+        database.ref('connections/playerTwo/').update({
+            wins: wins
+        })
+    }
 }
 function tie() {
-    console.log('tie!')
+    ties++;
+    $('#reactionImage').attr('src', 'images/tie.jpg')
+    if (isPlayer1) {
+        database.ref('connections/playerOne/').update({
+            ties:ties
+        })
+    } else {
+        database.ref('connections/playerTwo/').update({
+            ties:ties
+        })
+    }
 }
 
 
