@@ -187,7 +187,7 @@ function combat(move1, move2) {
 function player1Win() {
     if (isPlayer1) {
         wins++;
-        $('#reactionImage').attr('src', 'images/victory.jpg')
+        $('#reactionImage').attr('src', 'images/victory.jpg');
         database.ref('connections/playerOne/').update({
             wins: wins
         })
@@ -227,7 +227,6 @@ function tie() {
         })
     }
 }
-
 
 
 

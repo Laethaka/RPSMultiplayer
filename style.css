@@ -9,7 +9,7 @@ header {
 .player-one-box {
     float: left;
     background-color: grey;
-    width: 45%;
+    width: 85%;
     text-align: center;
     padding: 15px;
 }
@@ -17,15 +17,23 @@ header {
 .player-two-box {
     float: right;
     background-color: grey;
-    width: 45%;
+    width: 85%;
     text-align: center;
     padding: 15px;
 }
 
 .currentBar {
     font-size: 24px;
+    background-color: palegoldenrod;
+    margin: 15px 0;
 }
 
 #reactionImage {
+    margin-top: 20px;
+    display: none;
+}
+
+.chatlog {
+    text-align: center;
     margin-top: 20px;
 }
