@@ -17,25 +17,32 @@
         <header>Welcome to Rock Paper Scissors Online!</header>
 
         <div class="player-one-box">
-            <h3><span id='player1Name'>Player 1</span></h3>
+            <h3>Player One: <span id='player1Name'></span></h3>
             <!-- PLAYER ONE CONTROLS -->
             <div class="player-buttons invisible" id='p1Buttons'>
-                <button id="p1Rock"></button>
-                <button id="p1Paper"></button>
-                <button id="p1Scissors"></button>
+                <button class='player1button' id="p1Rock" data='rock'>Rock</button>
+                <button class='player1button' id="p1Paper" data='paper'>Paper</button>
+                <button class='player1button' id="p1Scissors" data='scissors'>Scissors</button>
             </div>
+            <div class='invisible currentBar' id="p1CurrentBar">Your move: <span id="p1CurrentMove"></span></div>
+            <p class='winLossBar'>Wins: <span id='p2Wins'></span> Ties: <span id='p2Ties'></span> Losses: <span id='p2Losses'></span></p>
         </div>
 
         <div class='player-two-box'>
-            <h3><span id='player2Name'>Player 2</span></h3>
+            <h3>Player Two: <span id='player2Name'></span></h3>
             <!-- PLAYER TWO CONTROLS -->
             <div class="player-buttons invisible" id='p2Buttons'>
-                <button id="p2Rock"></button>
-                <button id="p2Paper"></button>
-                <button id="p2Scissors"></button>
+                <button class='player2button' id="p2Rock" data='rock'>Rock</button>
+                <button class='player2button' id="p2Paper" data='paper'>Paper</button>
+                <button class='player2button' id="p2Scissors" data='scissors'>Scissors</button>
             </div>
+            <div class='invisible currentBar' id="p2CurrentBar">Your move: <span id="p2CurrentMove"></span></div>
+            <p class='winLossBar'>Wins: <span id='p2Wins'></span> Ties: <span id='p2Ties'></span> Losses: <span id='p2Losses'></span></p>
         </div>
 
+        <div id="reaction-image-box">
+            <img id="reactionImage"/>
+        </div>
 
 
     </div>
