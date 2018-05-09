@@ -77,11 +77,21 @@ function invitePlayerTwo() {
 //PLAYER ROLE FUNCTIONALITY
 function becomePlayerOne() {
     $('#p1Buttons').removeClass('invisible')
+    var userName = prompt('Please enter your username', 'Player 1');
+    $('#player1Name').text(userName)
+    
+    return database.ref().once('value').then (function (snapshot) {
+        console.log(snapshot.val())
+    })
+
     var presenceRef = database.ref("connections/playerOne/isPlayerOne");
     presenceRef.onDisconnect().set(false);
 };
 function becomePlayerTwo() {
     $('#p2Buttons').removeClass('invisible')
+    var userName = prompt('Please enter your username', 'Player 2');
+    $('#player2Name').text(userName)
+
     var presenceRef = database.ref("connections/playerTwo/isPlayerTwo");
     presenceRef.onDisconnect().set(false);
 };

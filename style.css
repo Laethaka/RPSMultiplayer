@@ -8,7 +8,7 @@ header {
 
 .player-one-box {
     float: left;
-    background-color: red;
+    background-color: grey;
     width: 45%;
     text-align: center;
     padding: 15px;
@@ -16,7 +16,7 @@ header {
 
 .player-two-box {
     float: right;
-    background-color: blue;
+    background-color: grey;
     width: 45%;
     text-align: center;
     padding: 15px;
